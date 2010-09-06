@@ -1,14 +1,16 @@
-# /Applications/Firefox.app/Contents/MacOS/firefox-bin -jssh
-#begin
-  
 require 'rubygems'
 require 'nokogiri'
 require 'firewatir'
-require 'unicode'
+require 'yaml'
 
-USER = ""
-PASSWORD = ""
+require 'yaml'
 
+config = YAML::load(File.open('config.yml'))
+
+USER = config["user"]
+PASSWORD = config["password"]
+
+# /Applications/Firefox.app/Contents/MacOS/firefox-bin -jssh
 # #https://email.o2online.de/ssomanager.osp?APIID=AUTH-WEBSSO
 #LOGIN_PAGE = "http://www.o2online.de/asp/login/comcenter-login?scheme=http&port=80&server=email.o2online.de&url=%2Fssomanager.osp%3FAPIID%3DAUTH-WEBSSO"
 LOGIN_PAGE = "https://login.o2online.de/loginRegistration/loginAction.do?_flowId=login&o2_type=asp&o2_label=login/comcenter-login&scheme=http&port=80&server=email.o2online.de&url=%2Fssomanager.osp%3FAPIID%3DAUTH-WEBSSO"
