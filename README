@@ -1,0 +1,13 @@
+Simple script to backup sent SMS of your o2online.de Account
+
+== INSTALATION
+ create a config.yml file witih following data:
+ 
+   user: <username> #(usually your mobile number)
+   password: <password>
+ 
+== TODO 
+ * use mechanize instead of firewaitr to speed it up
+ * send SMS
+ * turn into a gem with proper API?
+ 

@@ -2,28 +2,28 @@ require 'rubygems'
 require 'nokogiri'
 require 'firewatir'
 require 'yaml'
+require 'iconv'
 
-$KCODE = 'UTF-8'
+require 'ruby-debug'
+
 
 config   = YAML::load(File.open('config.yml'))
 USER     = config["user"]
 PASSWORD = config["password"]
 
 # /Applications/Firefox.app/Contents/MacOS/firefox-bin -jssh
-#           = "https://email.o2online.de/ssomanager.osp?APIID=AUTH-WEBSSO"
-#LOGIN_PAGE = "http://www.o2online.de/asp/login/comcenter-login?scheme=http&port=80&server=email.o2online.de&url=%2Fssomanager.osp%3FAPIID%3DAUTH-WEBSSO"
-#           = "https://email.o2online.de/ssomanager.osp?APIID=AUTH-WEBSSO&TargetApp=/smscenter_new.osp%3FAutocompletion%3D1%26SID%3D124234135_athoonis%26REF%3D1283805846%26MsgContentID%3D7855715"
 LOGIN_PAGE  = "https://login.o2online.de/loginRegistration/loginAction.do?_flowId=login&o2_type=asp&o2_label=login/comcenter-login&scheme=http&port=80&server=email.o2online.de&url=%2Fssomanager.osp%3FAPIID%3DAUTH-WEBSSO"
 SENT_PAGE   = "https://email.o2online.de/smscenter_search.osp?SID=124092227_otzulfav&FolderID=0&REF=1283731906&EStart="
+EDIT_PAGE   = "https://email.o2online.de/ssomanager.osp?APIID=AUTH-WEBSSO&TargetApp=/smscenter_new.osp%3FAutocompletion%3D1%26SID%3D124234135_athoonis%26REF%3D1283811721%26MsgContentID%3D"
 
-ff = FireWatir::Firefox.new
-ff.goto(LOGIN_PAGE)
-ff.text_field(:name,"loginName").set(USER)
-ff.text_field(:name,"password").set(PASSWORD)
-ff.form(:name, "login").submit
+@browser = FireWatir::Firefox.new
+@browser.goto(LOGIN_PAGE)
+@browser.text_field(:name,"loginName").set(USER)
+@browser.text_field(:name,"password").set(PASSWORD)
+@browser.form(:name, "login").submit
 
-def parse_doc( browser )
-  Nokogiri::HTML(browser.html).css("table.CONTENTLIST tr").each do |elm|
+def parse_doc( doc )
+  doc.css("table.CONTENTLIST tr").each do |elm|
     date, sender, text, dummy = elm.css("td.CONTENTTEXT")
     next unless text
     id = text.css("a").first.attributes["onclick"].value.scan(/'([^']+)'/u)[0][0]
@@ -42,15 +42,29 @@ def parse_doc( browser )
       text.css("b").first.content
     end
 
+    if text.size > 90
+      url = "#{EDIT_PAGE}#{id}"
+      # text = html(url)
+      @browser.goto(url)
+      @browser.frame(:name, "frame_content").document
+      text = @browser.html.scan(/<textarea[^>]+>([^<]*)</)[1][0]
+      # debugger
+      # .css("textarea.LARGE").first.content
+    end
+    
     puts [id, date, sender_name, sender_tel, text].join(";")
   end
 end
 
+def html(url)
+  @browser.goto(url)
+  Nokogiri::HTML(Iconv.conv('ISO-8859-1', 'utf-8', @browser.html))
+end
+
+
 15.times do |i|
   url = "#{SENT_PAGE}#{i*50}"
-  puts url
-  ff.goto(url)
-  parse_doc( ff )
+  parse_doc html(url)
 end
 
 # agent = Mechanize.new { |a| a.log = Logger.new("mech.log") }
