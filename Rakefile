@@ -5,12 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "o2online"
-    gem.summary = %Q{TODO: one-line summary of your gem}
+    gem.summary = %Q{The ruby way to deal with o2online.de - send and access ur SMS easily}
     gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "tobi@soundcloud.com"
+    gem.email = "tobi@rngtng.com"
     gem.homepage = "http://github.com/rngtng/o2online"
     gem.authors = ["Tobias Bielohlawek"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+#    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
