@@ -25,40 +25,28 @@ class SMS
     
   def sender
     data = @raw_sender.content
-    reg =~ /&gt/ ? /'(.+) &lt;(.*)&gt;,'/ : /'()(.+)'/
+    reg = (data =~ /&gt/) ? /'(.+) &lt;(.*)&gt;,'/ : /'()(.+)'/
     data.scan(reg)[0]
-    #sender_name, sender_tel = if sender.css("font").any?
-    #  sender.css("font").first.attributes["title"].value.scan(/(.+) <(.+)>/u)[0]
-    #else
-    #  ["", sender.css("a").first.content.scan(/'([^']+)'/u)[0][0]]
-    #end
-
-    #sender_name, sender_tel = if sender.css("font").any?
-    #  sender.css("font").first.attributes["title"].value.scan(/(.+) &lt;(.+)&gt;/u)[0]
-    #else
-    #  ["", sender.css("a").first.content.scan(/'([^']+)'/u)[0][0]]
-    #end
   end
 
   def text
-    # @text ||=  if @raw_text.css("font").any?
-    #   text.css("font").first.attributes["title"].value
-    # else
-    #   text.css("b").first.content if text.css("b").first
-    # end
-
-    # if text.size > 90
+    @text = @raw_text.content.scan(/cleanMessage\('(.*)'\),/)[0][0]
+ #   @text = long_text if @text.size > 90
+  end
+  
+  def long_text
+    @text
+#    @raw_text.content
     #   url = "#{EDIT_PAGE}#{id}"
     #   # text = html(url)
     #   @browser.goto(url)
     #   @browser.frame(:name, "frame_content").document
     #   text = @browser.html.scan(/<textarea[^>]+>([^<]*)</)[1][0]
     #   # debugger
-    #   # .css("textarea.LARGE").first.content
-    # end
+    #   # .css("textarea.LARGE").first.conten
   end
   
   def to_s
-    [id, date, sender, text].join(";")
+    [id, date, sender_name, sender_tel, text].join(";")
   end
 end

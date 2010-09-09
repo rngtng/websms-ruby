@@ -11,7 +11,7 @@ class TestO2online < Test::Unit::TestCase
     assert_equal "7.9.2010 18:03", sms.date
     assert_equal "", sms.sender_name
     assert_equal "+4915222222222", sms.sender_tel
-    #assert_equal "", sms.text
+    assert_equal "Heb dir mal Hunger auf, muss spter unbedingt was leckres essen ;-)", sms.text
   end
   
   def test_should_parse_line_with_name_and_tel
@@ -23,6 +23,6 @@ class TestO2online < Test::Unit::TestCase
     assert_equal "7.9.2010 18:03", sms.date
     assert_equal "Johanna", sms.sender_name
     assert_equal "+4915222222222", sms.sender_tel
-    #assert_equal "", sms.text
+    assert_equal "Heb dir mal Hunger auf, muss spter unbedingt was leckres essen ;-)", sms.text
   end  
 end
