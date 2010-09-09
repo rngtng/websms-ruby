@@ -6,7 +6,7 @@ class TestO2online < Test::Unit::TestCase
     line = Nokogiri::HTML File.read("./test/fixtures/line_tel.html")
 
     browser = O2online.new
-    sms = browser.send :parse_line, line
+    sms = browser.send :parse_archive_line, line
     
     assert_equal "7.9.2010 18:03", sms.date
     assert_equal "", sms.sender_name
@@ -18,7 +18,7 @@ class TestO2online < Test::Unit::TestCase
     line = Nokogiri::HTML File.read("./test/fixtures/line_name_tel.html")
 
     browser = O2online.new
-    sms = browser.send :parse_line, line
+    sms = browser.send :parse_archive_line, line
     
     assert_equal "7.9.2010 18:03", sms.date
     assert_equal "Johanna", sms.sender_name

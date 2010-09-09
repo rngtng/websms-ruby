@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "o2online"
     gem.summary = %Q{The ruby way to deal with o2online.de - send and access ur SMS easily}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{}
     gem.email = "tobi@rngtng.com"
     gem.homepage = "http://github.com/rngtng/o2online"
     gem.authors = ["Tobias Bielohlawek"]
