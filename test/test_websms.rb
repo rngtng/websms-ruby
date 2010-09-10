@@ -1,11 +1,11 @@
 require 'helper'
 
-class TestO2online < Test::Unit::TestCase
+class TestWebsms < Test::Unit::TestCase
 
   def test_should_parse_line_with_tel
     line = Nokogiri::HTML File.read("./test/fixtures/line_tel.html")
 
-    browser = O2online.new
+    browser = Websms.new
     sms = browser.send :parse_archive_line, line
     
     assert_equal "7.9.2010 18:03", sms.date
@@ -17,7 +17,7 @@ class TestO2online < Test::Unit::TestCase
   def test_should_parse_line_with_name_and_tel
     line = Nokogiri::HTML File.read("./test/fixtures/line_name_tel.html")
 
-    browser = O2online.new
+    browser = Websms.new
     sms = browser.send :parse_archive_line, line
     
     assert_equal "7.9.2010 18:03", sms.date

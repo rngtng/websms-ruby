@@ -3,10 +3,10 @@ require 'mechanize'
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-require 'o2online/sms'
+require 'websms/sms'
 #require 'o2online/client'
 
-class O2online
+class Websms
   VERSION = '0.2.0'
   
   LOGIN_PAGE   = "https://login.o2online.de/loginRegistration/loginAction.do?_flowId=login&o2_type=asp&o2_label=login/comcenter-login&scheme=http&port=80&server=email.o2online.de&url=%2Fssomanager.osp%3FAPIID%3DAUTH-WEBSSO"

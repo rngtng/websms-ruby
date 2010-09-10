@@ -1,4 +1,4 @@
-class O2online
+class Websms
   
   class Sms
     def initialize(raw_date, raw_sender, raw_text, account)

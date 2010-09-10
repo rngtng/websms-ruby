@@ -2,9 +2,9 @@ require 'rubygems'
 #require 'ruby-debug'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
-require "o2online"
+require "websms"
 
-client = O2online.new
+client = Websms.new
 config = YAML::load(File.open('config.yml'))
 client.login(config["user"], config["password"])
 
