@@ -1,18 +1,27 @@
-= o2online
+= websms
 
-Simple script to backup sent SMS of your o2online.de Account
+The ruby way to deal with websms - send and access your SMS easily. 
 
 == INSTALLATION
- create a config.yml file witih following data:
- 
-   user: <username> #(usually your mobile number)
-   password: <password>
+
+  gem install websms
+  
+== Usage
+  
+  browser = Websms::O2online.new
+  browser.login(<user>, <password>)
+
+  smss = browser.get_archive_page 3
+
+
+For more examples check the examples folder
  
 == TODO 
- * use mechanize instead of firewaitr to speed it up
+ * gmail support
+ * clickatell support
+ * other web SMS provider
  * send SMS
- * turn into a gem with proper API?
-
+ * define with proper API
 
 == Note on Patches/Pull Requests
  
@@ -25,6 +34,13 @@ Simple script to backup sent SMS of your o2online.de Account
 * Send me a pull request. Bonus points for topic branches.
 
 == Copyright
+The MIT License
 
-Copyright (c) 2010 Tobias Bielohlawek. See LICENSE for details.
+Copyright © 2010 RngTng, Tobias Bielohlawek
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
