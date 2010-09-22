@@ -1,10 +1,11 @@
 require 'rubygems'
-#require 'ruby-debug'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
+$LOAD_PATH.unshift(File.join(File.dirname(File.dirname(__FILE__)), 'lib'))
 require "websms"
 
-config = YAML::load(File.open('config.yml'))
+config = YAML::load(File.open(File.join(File.dirname(__FILE__),'config.yml')))
+
+
 
 browser = Websms::O2online.new
 browser.login(config["user"], config["password"])

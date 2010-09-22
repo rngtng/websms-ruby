@@ -5,15 +5,19 @@ module Websms
     ARCHIVE_PAGE = "https://email.o2online.de/smscenter_search.osp?SID=124092227_otzulfav&FolderID=0&REF=1283731906&EStart="
     EDIT_PAGE    = "https://email.o2online.de/smscenter_new.osp?Autocompletion=1&SID=124683602_emgucyuj&REF=1284069078&MsgContentID="
 
+    PER_PAGE     = 50
+
+    attr_reader :user
+
     def initialize
       @browser = Mechanize.new do |agent|
         agent.follow_meta_refresh = true
       end
-
       @logged_in = false
     end
 
     def login(user, password)
+      @user = user
       @browser.get LOGIN_PAGE
 
       form = @browser.page.form_with(:name => "login")
@@ -49,30 +53,21 @@ module Websms
 
     def parse_archive_line( line )
       date, sender, text, dummy = line.css("td.CONTENTTEXT")
-      text ? Websms::O2online::Sms.new( {:date => date, :sender => sender, :text => text}, self) : nil
+      Websms::O2online::Sms.new( :account => self, :receiver_tel => self.user, :raw_date => date, :raw_sender => sender, :raw_text => text )
     end
 
-  ##############################################################################################################
+    ##############################################################################################################
 
     class Sms < Websms::Sms
 
-      def initialize(data, account)
-        @raw_date   = data[:date]
-        @raw_sender = data[:sender]
-        @raw_text   = data[:text]
-        @account    = account
+      def initialize(data = {})
+        @account = data.delete(:account)
+        data.each { |key,value| send("#{key}=", value) }
       end
 
-      def id
-        @id ||= @raw_text.css("a").first.attributes["onclick"].value.scan(/'([^']+)'/u)[0][0]
-      end
-
-      def date
-        return @date if @date
-        #date = date.content.split("\n")[3].strip
-        day, month, year, hour, minute = @raw_date.content.scan(/\('([^)]*)'\)/).first.first.split("', '")
-        @date = "#{day}.#{month}.#{year} #{hour}:#{minute}"
-      end
+      # def id
+      #   @id ||= @raw_text.css("a").first.attributes["onclick"].value.scan(/'([^']+)'/u)[0][0]
+      # end
 
       def sender_name
         @sender_name ||= sender.first
@@ -82,23 +77,29 @@ module Websms
         @sender_tel ||= sender.last
       end
 
-      def sender
-        return @sender if @sender
-        data = @raw_sender.content
+      def raw_date=(raw_date)
+        #date = date.content.split("\n")[3].strip
+        day, month, year, hour, minute = raw_date.content.scan(/\('([^)]*)'\)/).first.first.split("', '")
+        @date = "#{day}.#{month}.#{year} #{hour}:#{minute}"
+      end
+
+      def raw_sender=(raw_sender)
+        data = raw_sender.content
         reg = (data =~ /&gt/) ? /'(.+) &lt;(.*)&gt;,'/ : /'()(.+)'/
         @sender = data.scan(reg)[0]
       end
 
-      def text
-        return @text if @text
-        @text = @raw_text.content.scan(/cleanMessage\('(.*)'\),/)[0][0]
+      def raw_text=(raw_text)
+        @text = raw_text.content.scan(/cleanMessage\('(.*)'\),/)[0][0]
         @text = long_text if @text.size > 90
         @text
       end
 
+      private
       def long_text
-        @raw_text = @account.get_edit_page(id)
-        @raw_text.parser.css("textarea.LARGE").first.content
+        return @text unless @account
+        raw_text = @account.get_edit_page(id)
+        raw_text.parser.css("textarea.LARGE").first.content
       end
     end
 

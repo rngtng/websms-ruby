@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'bundler/setup'
+
 require 'mechanize'
 
 $:.unshift(File.dirname(__FILE__)) unless
@@ -5,12 +8,8 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 require 'websms/sms'
 require 'websms/o2online'
+require 'websms/file'
 
 module Websms
   VERSION = '0.2.0'
-  
-  PER_PAGE     = 50
-
-  #attr_accessor :browser
-
 end

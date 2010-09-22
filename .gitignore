@@ -3,3 +3,6 @@ sms.txt
 sms_backup.txt
 o2online.gemspec
 pkg
+.rvmrc
+.bundle/config
+Gemfile.lock
