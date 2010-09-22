@@ -2,11 +2,12 @@ module Websms
   class File
 
     def initialize(file_name, cfg = {})
-      @content = Array(File.open(file_name).lines).join
+      path  = cfg.delete(:path) || ''
+      @content = Array(::File.open("#{path}#{file_name}").lines).join
       @pattern = Regexp.new cfg.delete(:pattern)
       @mapping  = cfg.delete(:mapping)
     end
-    
+
     def parse
       @content.scan(@pattern).map do |sms_data|
         Websms::File::Sms.new(sms_data, @mapping)
@@ -17,18 +18,19 @@ module Websms
 
     class Sms < Websms::Sms
 
-      def initialize(data, mapping)
+      def initialize(data = [], mapping = {})
         mapping.each do |field, key|
-          data = data[key] || key if data[key] || string?(key)
-          send("#{field}=", data)
+          send "#{field}=", eval_key(key, data)
         end
       end
 
       private
-      def string?(str)
-        str.to_i.to_s == str
+      def eval_key(key, data)
+        key.gsub(/\$[0-9]+/) do |index|
+          data[index.delete('$').to_i]
+        end
       end
     end
-    
+
   end
 end

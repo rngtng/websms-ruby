@@ -96,6 +96,10 @@ module Websms
       end
 
       private
+      def sender
+        @sender || []
+      end
+
       def long_text
         return @text unless @account
         raw_text = @account.get_edit_page(id)

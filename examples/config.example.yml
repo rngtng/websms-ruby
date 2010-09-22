@@ -6,7 +6,7 @@ o2online:
 file:
   "SMS-2001.txt":
     :pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n(.*)\n\n'
-    :fields:
+    :mapping:
       sender_name: $1
       sender_nr: $2
       date: $3
