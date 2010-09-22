@@ -28,7 +28,7 @@ module Websms
       def eval_key(key, data)
         key.gsub(/\$[0-9]+/) do |index|
           data[index.delete('$').to_i]
-        end
+        end.strip
       end
     end
 

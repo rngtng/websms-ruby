@@ -5,9 +5,29 @@ o2online:
 
 file:
   "SMS-2001.txt":
+    :path: '../sms2gmail/sms/'
     :pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n(.*)\n\n'
     :mapping:
       sender_name: $1
-      sender_nr: $2
+      sender_tel: $2
+      receiver_name: Tobi
       date: $3
       text: $4
+
+  "SMS-2002-2003.txt":
+    :path: '../sms2gmail/sms/'
+    :pattern: '^(.*);(.*);\[(.+)\];(.*);(.*);.*$'
+    :mapping:
+      sender_name: $3
+      sender_tel: $2
+      date: $0 $1
+      text: $4
+
+  "SMS-2004-11-30.txt":
+    :path: '../sms2gmail/sms/'
+    :pattern: 'DATE: (.*)\nTIME: (.*)\nPHONE NUBER: (.*)\nSENDER: (.*)\n(.+)\n'
+    :mapping:
+      sender_tel: $2
+      date: $0 $1
+      text: $4
+
