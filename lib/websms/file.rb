@@ -1,17 +1,25 @@
+require 'ruby-debug'
+
 module Websms
   class File
 
     def initialize(file_name, cfg = {})
-      path  = cfg.delete(:path) || ''
-      @content = Array(::File.open("#{path}#{file_name}").lines).join
-      @pattern = Regexp.new cfg.delete(:pattern)
-      @mapping  = cfg.delete(:mapping)
+      @content = Array(::File.open(file_name).lines).join
+      @pattern = Regexp.new cfg.delete(:pattern).to_s
+      @split   = cfg.delete(:split)
+      @mapping = cfg.delete(:mapping)
     end
 
     def parse
-      @content.scan(@pattern).map do |sms_data|
-        Websms::File::Sms.new(sms_data, @mapping)
+      split_content.map do |data|
+        Websms::File::Sms.new(data, @mapping)
       end
+    end
+
+    def split_content
+      return @content.split("\n").map { |line| line.split(@split) } if @split
+      #debugger
+      @content.scan(@pattern)
     end
 
     ##############################################################################################################
