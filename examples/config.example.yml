@@ -11,6 +11,7 @@ file:
 
   "SMS-2001.txt":
     :pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n(.*)\n\n'
+    :test: '.01'
     :mapping:
       sender_name: $1
       sender_tel: $2
@@ -19,6 +20,7 @@ file:
 
   "SMS-2002-2003.txt":
     :pattern: '^(.*);(.*);\[(.+)\];(.*);(.*);.*$'
+    :test: ';'
     :mapping:
       sender_name: $3
       sender_tel: $2
@@ -27,6 +29,7 @@ file:
 
   "SMS-2004-11-30.txt":
     :pattern: 'DATE: (.*)\nTIME: (.*)\nPHONE NUBER: (.*)\nSENDER: (.*)\n(.+)\n'
+    :test: 'DATE:'
     :mapping:
       sender_tel: $2
       date: $0 $1
@@ -34,6 +37,7 @@ file:
 
   "SMS-2004-Ausgang.txt": &SMS-2004-Ausgang
     :pattern: '^Ausgang,(.*),(.*),(.*),(.*)$'
+    :test: 'Ausgang'
     :mapping:
       received: false
       receiver_name: $2
@@ -44,9 +48,11 @@ file:
   "SMS-2004-Eingang.txt":
     <<: *SMS-2004-Ausgang
     :pattern: '^Eingang,(.*),(.*),(.*),(.*)$'
+    :test: 'Eingang'
 
   "SMS-2004.txt":
     :split: ","
+    :test: 'Eingang|Ausgang'
     :mapping:
       received: "'$0' =~ /Eingang/"
       date: $1
@@ -56,6 +62,7 @@ file:
 
   "SMS-2005-01-19.txt": &SMS-2005-01-19
     :split: "\t"
+    :test: '0'
     :mapping:
       received: "'$2' =~ /received/"
       date: $0 $1
@@ -79,62 +86,111 @@ file:
     <<: *SMS-2005-01-19
 
   "SMS-2005-09-25.txt":
-       
+    <<: *SMS-2005-01-19
+
   "SMS-2005-10-30.txt":
+    <<: *SMS-2005-01-19
 
   "SMS-2005-11-18.txt":
+    <<: *SMS-2005-01-19
 
   "SMS-2005-12-16.txt":
+    <<: *SMS-2005-01-19
 
   "SMS-2005-12-29.txt":
+    <<: *SMS-2005-01-19
 
   "SMS-2006-01-14.txt":
+    <<: *SMS-2005-01-19
 
   "SMS-2006-02-05.txt":
+    <<: *SMS-2005-01-19
 
   "SMS-2006-02-18.txt":
+    <<: *SMS-2005-01-19
 
   "SMS-2006-03-09.txt":
     <<: *SMS-2005-01-19
 
   "SMS-2006-05-05.txt":
+    :pattern: '((.+)\t)?([0-9 ()]+)\t(.+)\n((.+\n)+)\n'
+    :test: '+' 
+    :mapping:
+      :received: true
+      name: $0
+      tel: $2
+      date: $3
+      text: $4
 
   "SMS-2006-07-24.txt": &SMS-2006-07-24
     :pattern: '^(To)*(From)*: ((.*) <)?([ ()+0-9]+)(\/m>)?\n.*\n(Device: .*\n)?(Date: (.*)\n)?\n((.+\n)+)'
+    :test: '(From|To):'
     :mapping:
       :received: "'$1' =~ /From/"
       name: $3
       tel: $4
       date: $8
       text: $9
-       
+
   "SMS-2006-11-15.txt":
     <<: *SMS-2006-07-24
-    
+
   "SMS-2008-03-03.txt":
+    <<: *SMS-2006-07-24
+    :enabled: true
 
   "SMS-2008-07-01.txt": &SMS-2008-07-01
     :pattern: '^(Sent)*(Received)*\t(.+)\t(.+)\n((.+\n)+)\n'
-    :enabled: true
+    :test: 'Received|Sent'
     :mapping:
       :received: "'$1' =~ /Received/"
       name: $4
       date: $2
       text: $5
-    
+
   "SMS-2008-10-15.txt":
     <<: *SMS-2008-07-01
-    
+
   "SMS-2009-05-10.txt":
     <<: *SMS-2008-07-01
-    
+
   "SMS-2009-07-01.txt":
     <<: *SMS-2008-07-01
-    
+
   "SMS-2009-10-01.txt":
 
   "SMS-2010-06-01.txt":
     <<: *SMS-2008-07-01
-    
+
   "SMS-2010-08-15.txt":
     <<: *SMS-2008-07-01
+
+  "SMS-2010-10-10.txt":
+    <<: *SMS-2008-07-01
+
+  "SMS-Anna.txt":
+    :split: ""
+    :test: 'H'
+    :mapping:
+      received: true
+      name: "Anna Emig"
+      text: $0
+
+  "SMS-Karo.txt":
+    :split: ";"
+    :test: ";"
+    :mapping:
+      received: "'$0' =~ /received/"
+      name: $1
+      date: $2
+      text: $3
+
+  "sms.csv":
+    :split: '","'
+    :test: ','
+    :mapping:
+      received: "'$4' =~ /2/"
+      date: $2
+      tel: $1
+      text: $3
+
