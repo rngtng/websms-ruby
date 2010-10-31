@@ -123,8 +123,9 @@ file:
       text: $4
 
   "SMS-2006-07-24.txt": &SMS-2006-07-24
-    :pattern: '^(To)*(From)*: ((.*) <)?([ ()+0-9]+)(\/m>)?\n.*\n(Device: .*\n)?(Date: (.*)\n)?\n((.+\n)+)\n'
+    :pattern: '^(To|From): ([^0-9<\n]*)(<?([ ()+0-9]*)(\/m>)?)(Device: .*\n)?(Date: (.*)\n)?((.+\n)+)\n'
     :test: '(From|To):'
+    :enabled: true
     :mapping:
       :received: "'$1' =~ /From/"
       name: $3
