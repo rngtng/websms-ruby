@@ -11,7 +11,7 @@ file:
 
   "SMS-2001.txt":
     :pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n((.+\n)+)\n'
-    :test: '.01'
+    :test: '\.01'
     :mapping:
       sender_name: $1
       sender_tel: $2
@@ -114,7 +114,7 @@ file:
 
   "SMS-2006-05-05.txt":
     :pattern: '((.+)\t)?([0-9 ()]+)\t(.+)\n((.+\n)+)\n'
-    :test: '+' 
+    :test: 'PM|AM'
     :mapping:
       :received: true
       name: $0
@@ -125,7 +125,6 @@ file:
   "SMS-2006-07-24.txt": &SMS-2006-07-24
     :pattern: '^(To|From): ([^0-9<\n]*)(<?([ ()+0-9]*)(\/m>)?)(Device: .*\n)?(Date: (.*)\n)?((.+\n)+)\n'
     :test: '(From|To):'
-    :enabled: true
     :mapping:
       :received: "'$1' =~ /From/"
       name: $3
@@ -138,7 +137,6 @@ file:
 
   "SMS-2008-03-03.txt":
     <<: *SMS-2006-07-24
-    :enabled: true
 
   "SMS-2008-07-01.txt": &SMS-2008-07-01
     :pattern: '^(Sent)*(Received)*\t(.+)\t(.+)\n((.+\n)+)\n'
