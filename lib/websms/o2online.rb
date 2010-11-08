@@ -58,7 +58,8 @@ module Websms
 
     ##############################################################################################################
 
-    class Sms < Websms::Sms
+    class Sms
+      include Websms::Sms
 
       def initialize(data = {})
         @account = data.delete(:account)

@@ -26,7 +26,8 @@ module Websms
 
     ##############################################################################################################
 
-    class Sms < Websms::Sms
+    class Sms
+      include Websms::Sms
 
       def initialize(data = [], mapping = {})
         mapping.each do |field, key|

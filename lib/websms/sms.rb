@@ -1,6 +1,6 @@
 
 module Websms
-  class Sms
+  module Sms
 
     attr_accessor :id, :date, :time, :text
     attr_writer   :received, :name, :tel, :sender_name, :sender_tel, :receiver_name, :receiver_tel
