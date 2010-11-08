@@ -2,17 +2,24 @@ o2online:
   user: <telephone>
   password: <password>
 
+database:
+  adapter: mysql
+  encoding: UTF8
+  username: root
+  password:
+  host: localhost
+  sock: /tmp/mysql.sock
 
 file:
-  :default:
-    :enabled: true
-    :path: '../sms2gmail/sms/'
-    :received: true
+  default:
+    enabled: true
+    path: '../sms2gmail/sms/'
+    received: true
 
   "SMS-2001.txt":
-    :pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n((.+\n)+)\n'
-    :test: '\.01'
-    :mapping:
+    pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n((.+\n)+)\n'
+    test: '\.01'
+    mapping:
       received: "'$0' =~ /\"/"
       name: $1
       tel: $2
@@ -20,9 +27,9 @@ file:
       text: $4
 
   "SMS-2002-2003.txt":
-    :pattern: '^(.*);(.*);\[(.+)\];(.*);(.*);.*$'
-    :test: ';'
-    :mapping:
+    pattern: '^(.*);(.*);\[(.+)\];(.*);(.*);.*$'
+    test: ';'
+    mapping:
       received: true
       sender_name: $3
       sender_tel: $2
@@ -30,18 +37,18 @@ file:
       text: $4
 
   "SMS-2004-11-30.txt":
-    :pattern: 'DATE:(.*)\nTIME:(.*)\nPHONE NUBER:(.*)\nSENDER:(.*)\n(.+)\n'
-    :test: 'DATE:'
-    :mapping:
+    pattern: 'DATE:(.*)\nTIME:(.*)\nPHONE NUBER:(.*)\nSENDER:(.*)\n(.+)\n'
+    test: 'DATE:'
+    mapping:
       received: "'$0'.empty?"
       tel: $2
       date: $0 $1
       text: $4
 
   "SMS-2004-Ausgang.txt": &SMS-2004-Ausgang
-    :pattern: '^Ausgang,(.*),(.*),(.*),(.*)$'
-    :test: 'Ausgang'
-    :mapping:
+    pattern: '^Ausgang,(.*),(.*),(.*),(.*)$'
+    test: 'Ausgang'
+    mapping:
       received: false
       receiver_name: $2
       receiver_tel: $1
@@ -50,13 +57,13 @@ file:
 
   "SMS-2004-Eingang.txt":
     <<: *SMS-2004-Ausgang
-    :pattern: '^Eingang,(.*),(.*),(.*),(.*)$'
-    :test: 'Eingang'
+    pattern: '^Eingang,(.*),(.*),(.*),(.*)$'
+    test: 'Eingang'
 
   "SMS-2004.txt":
-    :split: ","
-    :test: 'Eingang|Ausgang'
-    :mapping:
+    split: ","
+    test: 'Eingang|Ausgang'
+    mapping:
       received: "'$0' =~ /Eingang/"
       date: $1
       tel: $2
@@ -64,9 +71,9 @@ file:
       text: $4
 
   "SMS-2005-01-19.txt": &SMS-2005-01-19
-    :split: "\t"
-    :test: '0'
-    :mapping:
+    split: "\t"
+    test: '0'
+    mapping:
       received: "'$2' =~ /received/"
       date: $0 $1
       tel: $4
@@ -116,20 +123,20 @@ file:
     <<: *SMS-2005-01-19
 
   "SMS-2006-05-05.txt":
-    :pattern: '((.+)\t)?([0-9 ()]+)\t(.+)\n((.+\n)+)\n'
-    :test: 'PM|AM'
-    :mapping:
-      :received: true
+    pattern: '((.+)\t)?([0-9 ()]+)\t(.+)\n((.+\n)+)\n'
+    test: 'PM|AM'
+    mapping:
+      received: true
       name: $0
       tel: $2
       date: $3
       text: $4
 
   "SMS-2006-07-24.txt": &SMS-2006-07-24
-    :pattern: '^(To|From): ([^0-9<\n+]*)(<?([ ()+0-9]*)(\/m>)?)\n(Device: .*\n)?(Date: (.*)\n)?\n((.+\n)+)\n'
-    :test: '(From|To):'
-    :mapping:
-      :received: "'$0' =~ /From/"
+    pattern: '^(To|From): ([^0-9<\n+]*)(<?([ ()+0-9]*)(\/m>)?)\n(Device: .*\n)?(Date: (.*)\n)?\n((.+\n)+)\n'
+    test: '(From|To):'
+    mapping:
+      received: "'$0' =~ /From/"
       name: $1
       tel: $3
       date: $7
@@ -142,10 +149,10 @@ file:
     <<: *SMS-2006-07-24
 
   "SMS-2008-07-01.txt": &SMS-2008-07-01
-    :pattern: '^(Sent|Received)*\t(.+)\t(.+)\n((.+\n)+)\n'
-    :test: 'Received|Sent'
-    :mapping:
-      :received: "'$0' =~ /Received/"
+    pattern: '^(Sent|Received)*\t(.+)\t(.+)\n((.+\n)+)\n'
+    test: 'Received|Sent'
+    mapping:
+      received: "'$0' =~ /Received/"
       name: $2
       date: $1
       text: $3
@@ -171,26 +178,26 @@ file:
     <<: *SMS-2008-07-01
 
   "SMS-Anna.txt":
-    :split: "nothing"
-    :test: 'a|e'
-    :mapping:
+    split: "nothing"
+    test: 'a|e'
+    mapping:
       received: true
       name: "Anna Emig"
       text: $0
 
   "SMS-Karo.txt":
-    :split: ";"
-    :test: ";"
-    :mapping:
+    split: ";"
+    test: ";"
+    mapping:
       received: "'$0' =~ /received/"
       name: $1
       date: $2
       text: $3
 
   "sms.csv":
-    :split: '","'
-    :test: ','
-    :mapping:
+    split: '","'
+    test: ','
+    mapping:
       received: "'$4' =~ /2/"
       time: $2
       tel: $1

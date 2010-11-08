@@ -6,31 +6,24 @@ require "websms"
 
 config = YAML::load(File.open(File.join(File.dirname(__FILE__),'config.yml')))
 
-
 files = config['file']
-default_cfg = files.delete(:default)
+default_cfg = files.delete('default')
 
 files.map do |file_name, cfg|
   next unless cfg
   cfg = default_cfg.merge( cfg )
-  next unless cfg[:enabled]
+  next unless cfg['enabled']
 
-  puts "#{file_name}"
+  print "#{file_name} - "
 
-  file_name = File.join(cfg[:path], file_name)
+  file_name = File.join(cfg['path'], file_name)
+  content = Websms::File::import(file_name, cfg)
+  valid   = Websms::File::valid?(file_name, cfg, content)
 
-  file = Websms::File.new(file_name, cfg)
+  #file.each do |sms|
+  #  puts Columnize::columnize sms.to_a, 160
+  #end
 
-  i = 0
-  file.parse.each do |sms|
-    puts Columnize::columnize sms.to_a, 160
-    i += 1
-  end
-
-  if test_pattern = cfg[:test]
-    size = `grep -E '#{test_pattern}' #{file_name} | wc -l`.strip.to_i
-  end
-
-  print " (#{i}/#{size}) - "
-  puts (i != size) ? "FAILED" : "OK"
+  puts "#{content.size} - #{valid ? "OK" : "FAILED"}"
+  content
 end

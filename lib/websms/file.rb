@@ -1,25 +1,27 @@
-require 'ruby-debug'
+#require 'ruby-debug'
 
 module Websms
   class File
 
-    def initialize(file_name, cfg = {})
-      @content = Array(::File.open(file_name).lines).join
-      @pattern = Regexp.new cfg.delete(:pattern).to_s
-      @split   = cfg.delete(:split)
-      @mapping = cfg.delete(:mapping)
-    end
+    def self.import(file_name, cfg = {})
+      raw_content = Array(::File.open(file_name).lines).join
+      pattern     = Regexp.new cfg.delete('pattern').to_s
+      mapping     = cfg.delete('mapping')
 
-    def parse
-      split_content.map do |data|
-        Websms::File::Sms.new(data, @mapping)
+      @content    = split_content(raw_content, pattern, cfg.delete('split')).map do |data|
+        Websms::File::Sms.new(data, mapping)
       end
     end
 
-    def split_content
-      return @content.split("\n").map { |line| line.split(@split) } if @split
-      #debugger
-      @content.scan(@pattern)
+    def self.split_content(content, pattern, split)
+      return content.split("\n").map { |line| line.split(split) } if split
+      content.scan(pattern)
+    end
+
+    def self.valid?(file_name, cfg = {}, content = nil)
+      test_pattern = cfg.delete('test')
+      content      ||= import(file_name, cfg)
+      content.size == `grep -E '#{test_pattern}' #{file_name} | wc -l`.strip.to_i
     end
 
     ##############################################################################################################
