@@ -3,11 +3,13 @@ o2online:
   password: <password>
 
 database:
-  adapter: mysql
-  encoding: UTF8
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: websms
   username: root
   password:
-  host: localhost
+  #host: localhost
   sock: /tmp/mysql.sock
 
 file:

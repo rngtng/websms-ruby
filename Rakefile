@@ -38,6 +38,16 @@ rescue LoadError
   end
 end
 
+desc "Migrate Database"
+task :migrate do
+  $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
+  require "websms"
+
+  Websms::Db::init
+  ActiveRecord::Migrator.up('db/migrate')
+end
+
+
 task :test => :check_dependencies
 
 task :default => :test

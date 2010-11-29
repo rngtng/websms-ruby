@@ -9,6 +9,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'websms/sms'
 require 'websms/o2online'
 require 'websms/file'
+require 'websms/db'
 
 module Websms
   VERSION = '0.2.0'

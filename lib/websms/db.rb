@@ -1,18 +1,33 @@
+require 'mysql2'
+require "active_record"
 
 module Websms
   class Db
 
-   def import(contents, cfg)
-     ActiveRecord::Base.establish_connection(cfg)
+    def self.init(cfg_file = nil)
+      return if @config_done
+      file ||= ::File.join(::File.dirname(__FILE__), '../../config/config.yml')
+      config = YAML::load(::File.open(file))['database'].symbolize_keys
+      ActiveRecord::Base.establish_connection(config)
+      @config_done = true
+    end
 
-     contents.each do |content|
+    def self.import(contents, cfg_file = nil)
+      init(cfg_file)
 
-     end
-   end
+      contents.each do |content|
+        puts content
+        sms = Websms::Db::Sms.new(content)
+        sms.save!
+      end
+    end
 
-   ##############################################################################################################
+    ##############################################################################################################
 
-   class Sms < ActiveRecord::Base
-     include Websms::Sms
-   end
+    class Sms < ActiveRecord::Base
+      include Websms::Sms
+
+    end
+
+  end
 end
