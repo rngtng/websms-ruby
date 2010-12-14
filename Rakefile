@@ -43,10 +43,9 @@ task :migrate do
   $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
   require "websms"
 
-  Websms::Db::init
+  Websms::Db::connect
   ActiveRecord::Migrator.up('db/migrate')
 end
-
 
 task :test => :check_dependencies
 

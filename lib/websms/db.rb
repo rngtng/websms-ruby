@@ -1,10 +1,10 @@
 require 'mysql2'
-require "active_record"
+require 'active_record'
 
 module Websms
   class Db
 
-    def self.init(cfg_file = nil)
+    def self.connect(cfg_file = nil)
       return if @config_done
       file ||= ::File.join(::File.dirname(__FILE__), '../../config/config.yml')
       config = YAML::load(::File.open(file))['database'].symbolize_keys
@@ -13,7 +13,7 @@ module Websms
     end
 
     def self.import(contents, cfg_file = nil)
-      init(cfg_file)
+      connect(cfg_file)
 
       contents.each do |content|
         puts content
@@ -25,7 +25,6 @@ module Websms
     ##############################################################################################################
 
     class Sms < ActiveRecord::Base
-      include Websms::Sms
 
     end
 

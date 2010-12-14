@@ -8,7 +8,9 @@ module Websms
       pattern     = Regexp.new cfg.delete('pattern').to_s
       mapping     = cfg.delete('mapping')
 
+      i = 0
       @content    = split_content(raw_content, pattern, cfg.delete('split')).map do |data|
+        mapping["source"] = "#{file_name}-#{i+=1}"
         Websms::File::Sms.new(data, mapping)
       end
     end
