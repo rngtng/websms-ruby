@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'rubygems'
 
 $LOAD_PATH.unshift(File.join(File.dirname(File.dirname(__FILE__)), 'lib'))

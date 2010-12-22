@@ -23,7 +23,9 @@ module Websms
     def self.valid?(file_name, cfg = {}, content = nil)
       test_pattern = cfg.delete('test')
       content      ||= import(file_name, cfg)
-      content.size == `grep -E '#{test_pattern}' #{file_name} | wc -l`.strip.to_i
+      size           = `grep -E '#{test_pattern}' #{file_name} | wc -l`.strip.to_i
+      print "is: #{content.size} should:#{size}"
+      content.size == size
     end
 
     ##############################################################################################################

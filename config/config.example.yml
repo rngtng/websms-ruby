@@ -20,9 +20,9 @@ file:
 
   "SMS-2001.txt":
     pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n((.+\n)+)\n'
-    test: '\.01'
+    test: '\.2001'
     mapping:
-      received: "'$0' =~ /\"/"
+      received: false
       name: $1
       tel: $2
       date: $3
@@ -33,8 +33,8 @@ file:
     test: ';'
     mapping:
       received: true
-      sender_name: $3
-      sender_tel: $2
+      name: $3
+      tel: $2
       date: $0 $1
       text: $4
 
@@ -42,7 +42,7 @@ file:
     pattern: 'DATE:(.*)\nTIME:(.*)\nPHONE NUBER:(.*)\nSENDER:(.*)\n(.+)\n'
     test: 'DATE:'
     mapping:
-      received: "'$0'.empty?"
+      received: "!'$0'.empty?"
       tel: $2
       date: $0 $1
       text: $4
@@ -52,8 +52,8 @@ file:
     test: 'Ausgang'
     mapping:
       received: false
-      receiver_name: $2
-      receiver_tel: $1
+      name: $2
+      tel: $1
       date: $0
       text: $3
 
@@ -151,13 +151,14 @@ file:
     <<: *SMS-2006-07-24
 
   "SMS-2008-07-01.txt": &SMS-2008-07-01
-    pattern: '^(Sent|Received)*\t(.+)\t(.+)\n((.+\n)+)\n'
+    pattern: '^(Sent|Received)\t([^\t]+)\t((\+?[0-9]+)|([^0-9\n]+))\n((.+\n)+)\n'
     test: 'Received|Sent'
     mapping:
       received: "'$0' =~ /Received/"
-      name: $2
+      name: $4
+      tel: $3
       date: $1
-      text: $3
+      text: $5
 
   "SMS-2008-10-15.txt":
     <<: *SMS-2008-07-01
@@ -169,6 +170,7 @@ file:
     <<: *SMS-2008-07-01
 
   "SMS-2009-10-01.txt":
+    <<: *SMS-2008-07-01
 
   "SMS-2010-06-01.txt":
     <<: *SMS-2008-07-01

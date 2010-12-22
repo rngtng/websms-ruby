@@ -1,33 +1,25 @@
 
 module Websms
   module Sms
-    ATTRIBUTES = [:received, :sender_name, :sender_tel, :receiver_name, :receiver_tel, :date, :text, :source, :parent_msg_id]
+    ATTRIBUTES = [:received, :name, :tel, :date, :text, :source, :parent_msg_id]
 
     attr_accessor *ATTRIBUTES
 
     #virtual
-    attr_writer   :name, :tel, :time
+    attr_writer :time
 
     ##################################
 
-    def sender_name
-      @sender_name || !received? ? @name : nil
+    def tel
+      clean_number(@tel)
     end
 
-    def sender_tel
-      clean_number(@sender_tel || !received? ? @tel : nil)
-    end
-
-    def receiver_name
-      @receiver_name || received? ? @name : nil
-    end
-
-    def receiver_tel
-      clean_number(@receiver_tel || received? ? @tel : nil)
+    def received
+      !!eval(@received) || 0
     end
 
     def received?
-      !@received.empty? && !eval(@received)
+      received
     end
 
     def date
@@ -59,7 +51,8 @@ module Websms
     def to_hash
       hash = {}
       ATTRIBUTES.each do |attrib|
-        hash[attrib] = self.send(attrib)
+        value = self.send(attrib)
+        hash[attrib] = value.blank? ? nil : value
       end
       hash
     end
