@@ -11,5 +11,6 @@ gem 'activerecord'
 
 gem 'mechanize'
 gem 'ruby-gmail'
-gem 'columnize'
+
+gem 'vcard'
 

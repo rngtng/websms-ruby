@@ -11,7 +11,7 @@ module Websms
     ##################################
 
     def tel
-      clean_number(@tel)
+      Websms::Sms::clean_number(@tel)
     end
 
     def received
@@ -63,7 +63,7 @@ module Websms
 
     ##################################
 
-    def clean_number(number)
+    def self.clean_number(number)
       return unless number
       number.gsub(/[^0-9]/, '').gsub('0049', '49').gsub(/^0/, '49')
     end
