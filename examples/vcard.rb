@@ -13,15 +13,18 @@ default_cfg = files.delete('default')
 Websms::Db::connect
 
 def vcard
-  file = File.open("contacts.vcf")
+
   contacts = {}
   tels = {}
-  Vpim::Vcard.decode(file).each do |card|
-    card.telephones.each do |t|
-      contacts[Websms::Sms::clean_number(t).to_s] = card.name.fullname
-
-      if t.location.first == 'cell'
-        tels[card.name.fullname] = Websms::Sms::clean_number(t.to_s)
+  %w(contacts.vcf contacts2.vcf).each do |file_name|
+    file = File.open(file_name)
+    Vpim::Vcard.decode(file).each do |card|
+      card.telephones.each do |t|
+        contacts[Websms::Sms::clean_number(t).to_s] = card.name.fullname
+        if t.location.first == 'cell'
+          tels[card.name.fullname] = Websms::Sms::clean_number(t.to_s)
+          tels[[card.name.given, card.name.family].join(' ')] = Websms::Sms::clean_number(t.to_s)
+        end
       end
     end
   end
@@ -41,9 +44,9 @@ def vcard
        puts contacts[sms.tel]
      end
   end
-  
+
   puts "####################"
-  
+
   Websms::Db::Sms.find(:all,
    :conditions => "name is NOT NULL AND tel is NULL",
    :select => "DISTINCT name, tel").each do |sms|

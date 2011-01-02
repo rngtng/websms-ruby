@@ -6,3 +6,5 @@ o2online.gemspec
 pkg
 .bundle/config
 Gemfile.lock
+.DS_Store
+*.vcf

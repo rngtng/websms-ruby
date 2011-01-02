@@ -52,8 +52,9 @@ module Websms
     end
 
     def parse_archive_line( line )
-      date, sender, text, dummy = line.css("td.CONTENTTEXT")
-      Websms::O2online::Sms.new( :account => self, :receiver_tel => self.user, :raw_date => date, :raw_sender => sender, :raw_text => text )
+      date, name, text, dummy = line.css("td.CONTENTTEXT")
+      return unless date
+      Websms::O2online::Sms.new( :received => false, :account => self, :raw_date => date, :raw_name => name, :raw_text => text )
     end
 
     ##############################################################################################################
@@ -66,16 +67,8 @@ module Websms
         data.each { |key,value| send("#{key}=", value) }
       end
 
-      # def id
-      #   @id ||= @raw_text.css("a").first.attributes["onclick"].value.scan(/'([^']+)'/u)[0][0]
-      # end
-
-      def sender_name
-        @sender_name ||= sender.first
-      end
-
-      def sender_tel
-        @sender_tel ||= sender.last
+      def id
+        @id ||= @raw_text
       end
 
       def raw_date=(raw_date)
@@ -84,25 +77,24 @@ module Websms
         @date = "#{day}.#{month}.#{year} #{hour}:#{minute}"
       end
 
-      def raw_sender=(raw_sender)
-        data = raw_sender.content
+      def raw_name=(raw_name)
+        data = raw_name.content
         reg = (data =~ /&gt/) ? /'(.+) &lt;(.*)&gt;,'/ : /'()(.+)'/
-        @sender = data.scan(reg)[0]
+        @name, @tel = *Array(data.scan(reg)[0])
       end
 
       def raw_text=(raw_text)
         @text = raw_text.content.scan(/cleanMessage\('(.*)'\),/)[0][0]
-        @text = long_text if @text.size > 90
+        if @text.size > 90
+          id = raw_text.css("a").first.attributes["onclick"].value.scan(/'([^']+)'/u)[0][0]
+          @text = long_text(id)
+        end
         @text
       end
 
       private
-      def sender
-        @sender || []
-      end
 
-      def long_text
-        return @text unless @account
+      def long_text(id)
         raw_text = @account.get_edit_page(id)
         raw_text.parser.css("textarea.LARGE").first.content
       end

@@ -45,7 +45,7 @@ module Websms
     ##################################
 
     def to_a
-      [date, "#{sender_name}(#{sender_tel})", "#{receiver_name}(#{receiver_tel})", text.delete("\n")[0..50]]
+      [date, "#{name}(#{tel})", text.delete("\n")[0..50]]
     end
 
     def to_hash
