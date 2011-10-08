@@ -41,17 +41,17 @@ module Websms
       @browser.get "#{EDIT_PAGE}#{id}"
     end
 
-    def get_archive_page( page_nr = 1 )
+    def get_archive_page(page_nr = 1)
       parse_archive @browser.get "#{ARCHIVE_PAGE}#{page_nr*PER_PAGE}"
     end
 
-    def parse_archive( archive )
+    def parse_archive(archive)
       archive.parser.css("table.CONTENTLIST tr").map do |line|
         parse_archive_line line
       end.compact
     end
 
-    def parse_archive_line( line )
+    def parse_archive_line(line)
       date, name, text, dummy = line.css("td.CONTENTTEXT")
       return unless date
       Websms::O2online::Sms.new( :received => false, :account => self, :raw_date => date, :raw_name => name, :raw_text => text )

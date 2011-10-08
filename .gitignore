@@ -1,10 +1,4 @@
-.rvmrc
-config.yml
-sms.txt
-sms_backup.txt
-o2online.gemspec
-pkg
-.bundle/config
+*.gem
+.bundle
 Gemfile.lock
-.DS_Store
-*.vcf
+pkg/*
