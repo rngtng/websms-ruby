@@ -1,17 +1,23 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
+$LOAD_PATH.unshift File.expand_path('../lib')
+require 'websms/o2online'
+require 'yaml'
 
-$LOAD_PATH.unshift(File.join(File.dirname(File.dirname(__FILE__)), 'lib'))
-require "websms"
+CFG_FILE = File.expand_path('../../config/config.yml')
 
-config = YAML::load(File.open(File.join(File.dirname(File.dirname(__FILE__)),'config/config.yml')))
+config = YAML::load(File.open(CFG_FILE))["o2online"]
 
 browser = Websms::O2online.new
-browser.login(config["o2online"]["user"], config["o2online"]["password"])
+browser.login(config["user"], config["password"])
 
-smss = browser.get_archive_page 3
-
-smss.each do |sms|
-  puts sms.to_s
+if browser.logged_in?
+  raw = browser.get_archive_page 3
+  debugger
 end
+
+# sms = Websms::Sms.extract(raw, :mapping => config["mapping"], :pattern => config["pattern"])
+
+#sms.each do |s|
+ # Websms::Sms.create(s)
+#end

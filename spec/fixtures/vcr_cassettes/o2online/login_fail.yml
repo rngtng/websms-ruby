@@ -1,0 +1,318 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://login.o2online.de:443/auth/login?o2_type=asp&o2_label=login/comcenter-login&scheme=http&port=80&server=email.o2online.de&url=%2Fssomanager.osp%3FAPIID%3DAUTH-WEBSSO
+    body: 
+    headers: 
+      user-agent: 
+      - Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; de-at) AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10
+      accept-encoding: 
+      - gzip,deflate,identity
+      accept-charset: 
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      accept-language: 
+      - en-us,en;q=0.5
+      host: 
+      - login.o2online.de
+      connection: 
+      - keep-alive
+      keep-alive: 
+      - 300
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      date: 
+      - Sun, 09 Oct 2011 22:51:57 GMT
+      x-powered-by: 
+      - "Servlet 2.4; JBoss-4.2.3.GA (build: SVNTag=JBoss_4_2_3_GA date=200807181417)/JBossWeb-2.0"
+      set-cookie: 
+      - JSESSIONID=1132E76B283E4C32DB96D3B039A4A5BC; Path=/auth; Secure
+      pragma: 
+      - no-cache
+      cache-control: 
+      - no-cache, max-age=0,must-revalidate, no-store
+      content-type: 
+      - text/html;charset=UTF-8
+      content-language: 
+      - en-US
+      content-length: 
+      - "7102"
+      keep-alive: 
+      - timeout=3, max=200
+    body: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n\
+      <html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:o2=\"http://www.o2.de/wicket\" xml:lang=\"de\" lang=\"de\">\n\
+      <head>\n    <title>o2.de</title>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=8\" />\n\
+      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n\
+      <meta http-equiv=\"language\" content=\"de\" />\n\
+      <meta http-equiv=\"pragma\" content=\"no-cache\" />\n\
+      <!--[if IE]><![endif]-->\n\
+      <link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/main.css?v=05101514\" type=\"text/css\" media=\"all\" charset=\"UTF-8\" />\n\
+      <link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/forms.css?v=05101514\" type=\"text/css\" media=\"all\" charset=\"UTF-8\" />\n\
+      <link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/shopnew.css?v=05101514\" type=\"text/css\" media=\"all\" charset=\"UTF-8\" />\n\
+      <!--[if IE]>\n\
+      \t<link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/styles-ie.css?v=05101514\" type=\"text/css\" media=\"screen\" charset=\"UTF-8\" />\n\
+      <![endif]-->\n\
+      <script type=\"text/javascript\" src=\"https://static.o2.de/resource/js/min/main.js?v=05101514\"></script>\n\n\
+      <script type=\"text/javascript\" src=\"resources/org.apache.wicket.markup.html.WicketEventReference/wicket-event.js\"></script>\n\
+      <script type=\"text/javascript\" src=\"resources/org.apache.wicket.ajax.WicketAjaxReference/wicket-ajax.js\"></script>\n\
+      </head>\n\
+      <body>\n\
+      \t<div id=\"main-wrapper\">\n\
+      \t\t<o2:cms id=\"id3\"><!-- NO INDEX -->\n\
+      <div id=\"header\" class=\"microsite\">\n\
+      <a href=\"http://www.o2online.de/\" id=\"r-1310967230\" class=\"header-logo\" title=\"Homepage\"><span><img src=\"https://static2.o2.de/blob/10405252/Image/bild-o2-beta.png?v=5\" width=\"53\" height=\"53\" title=\"\" alt=\"o2-Logo\" />\n\
+      \t</span></a>\n\
+      \t</div>\n\n\
+      <!-- INDEX --></o2:cms>\n\
+      \t\t<div id=\"content-area\">\n\
+      \t\t\t\n\n\n        <div class=\"grid9 border-bg\">\n            <div class=\"col9 login\">\n                \n    <div class=\"form-table-header\">\n        <div id=\"id-10538196\">\n\
+      \t\t<div class=\"article\">\n\
+      \t\t<h2>Login</h2></div>\n\
+      \t</div>\n\
+      \t\n    </div>\n    <div id=\"id5\">\n\n        \n\n\
+      </div>\n    \n     <form id=\"id6\" method=\"post\" action=\";jsessionid=1132E76B283E4C32DB96D3B039A4A5BC?wicket:interface=:0:loginForm::IFormSubmitListener::\"><div style=\"width:0px;height:0px;position:absolute;left:-100px;top:-100px;overflow:hidden\"><input type=\"hidden\" name=\"id6_hf_0\" id=\"id6_hf_0\" /></div>\n        <div class=\"form-table-content\">\n            <p class=\"mandatory-field\"><span class=\"mandatory\">*</span> Pflichtfeld</p>\n            <table class=\"login-table\">\n                <colgroup>\n                    <col/>\n                    <col/>\n                    <col/>\n                </colgroup>\n                <tbody>\n                \n    <tr>\n        <td>\n            <label for=\"id1\">Handynr. oder Nutzername</label>\n            <span class=\"mandatory\">*</span>\n        </td>\n\n        <td>\n            \n    <input type=\"text\" id=\"id7\" maxlength=\"30\" value=\"\" name=\"loginName:loginName\" onblur=\"var wcall=wicketAjaxPost(';jsessionid=1132E76B283E4C32DB96D3B039A4A5BC?wicket:interface=:0:loginForm:loginName:loginName::IBehaviorListener:0:', wicketSerialize(Wicket.$('id7')),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id7') != null;}.bind(this));\"/>\n\n        </td>\n        <td>\n          \n          <span id=\"id8\">\n    \n\
+      </span>\n        </td>\n    </tr>\n\n                \n    <tr>\n        <td>\n            <label for=\"id2\">Kennwort</label>\n            <span class=\"mandatory\">*</span>\n        </td>\n\n        <td>\n            \n    <input type=\"password\" id=\"id9\" maxlength=\"30\" value=\"\" name=\"password:password\" onblur=\"var wcall=wicketAjaxPost(';jsessionid=1132E76B283E4C32DB96D3B039A4A5BC?wicket:interface=:0:loginForm:password:password::IBehaviorListener:0:', wicketSerialize(Wicket.$('id9')),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id9') != null;}.bind(this));\"/>\n\n        </td>\n        <td>\n          \n          <span id=\"ida\">\n    \n\
+      </span>\n        </td>\n    </tr>\n\n                \n                <tr>\n                    <td colspan=\"3\"><a href=\"registration\" class=\"lnk\">Registrierung</a></td>\n\n                </tr>\n                <tr>\n                    <td colspan=\"3\"><a href=\"passwordForgotten\" class=\"lnk\">Kennwort vergessen?</a></td>\n\n                </tr>\n                </tbody>\n            </table>\n        </div>\n        \n\
+      <div class=\"form-table-buttons\">\n    <button type=\"submit\" class=\"btn blue big rght\" id=\"loginButton\">\n        <span>Weiter</span>\n    </button>\n    <button class=\"btn white big\" id=\"idb\" name=\"buttons:cancel\">\n        <span>Abbrechen</span>\n    </button>\n\
+      </div>\n\n    </form>\n\n\n            </div>\n        </div>\n\n\n\
+      \t\t</div>\n\
+      \t\t<div id=\"footnoteListPanelled\">\n\
+      \t\t\t<div id=\"idc\"></div>\n\
+      \t\t</div>\n\
+      \t\t<o2:cms id=\"idd\"><!-- NO INDEX -->\n\
+      <div id=\"footer\">\n\
+      <ul id=\"navigation-footer\">\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/impressum/\" id=\"r-2053620884\" class=\"lnk\" title=\"Impressum\" rel=\"nofollow\"><span>Impressum</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/agb-und-infos/\" id=\"r-2101408537\" class=\"lnk\" title=\"AGB &#38; Infos\" rel=\"nofollow\"><span>AGB &#38; Infos</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/daten-und-jugendschutz/datenschutz/\" id=\"r-1660053931\" class=\"lnk\" title=\"Daten- und Jugendschutz\" rel=\"nofollow\"><span>Daten- und Jugendschutz</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/werbepartner/\" id=\"r-2056697754\" class=\"lnk\" title=\"Werbepartner\" rel=\"nofollow\"><span>Werbepartner</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://o2.de/go/unternehmen\" id=\"r-658641200\" class=\"lnk\" title=\"\xC3\x9Cber o2\"><span>\xC3\x9Cber O<sub>2</sub></span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://o2.de/go/karriere\" id=\"r-181656021\" class=\"lnk\" title=\"Karriere\"><span>Karriere</span></a>\n\
+      \t</li>\n\
+      \t\t</ul>\n\
+      <a href=\"http://www.telefonica.com/en/home/jsp/home.jsp\" id=\"r-1479919759\" class=\"lnk\" title=\"Telef\xC3\xB3nica\"><span><img class=\"footer-logo\" src=\"https://static2.o2.de/blob/10405030/Image/bild-telefonica-logo.png?v=8\" width=\"76\" height=\"21\" title=\"Telef\xC3\xB3nica\" alt=\"Telef\xC3\xB3nica\" />\n\
+      \t</span></a>\n\
+      \t<a href=\"http://www.telefonica.de/ext/o2/wizard/index?\" id=\"r-2133452133\" target=\"_blank\" class=\"footer-legalnote\" title=\"\xC2\xA9 Telef\xC3\xB3nica Germany GmbH &#38; Co. OHG\"><span>\xC2\xA9 Telef\xC3\xB3nica Germany GmbH &#38; Co. OHG</span></a>\n\
+      \t</div>\n\n\
+      <script type=\"text/javascript\">\n\
+      <!--\n\
+      if (typeof(unica_path) == 'undefined') { \n\
+      \tvar unica_path = window.location.pathname;\n\
+      }\n\
+      if (typeof(NTPT_PGEXTRA) == 'undefined') {\n\
+      var NTPT_PGEXTRA = \"lc=\" + window.location.protocol + \"//\" +  window.location.hostname + unica_path + encodeURIComponent(window.location.search);\n\
+      }\n\
+      var NTPT_IMGSRC = 'http://track.o2online.de/images/ntpagetag.gif';\n\
+      var NTPT_HTTPSIMGSRC = 'https://track.o2online.de/images/ntpagetag.gif';\n\
+      //-->\n\
+      </script>\n\
+      <!-- Copyright 2004-2006 Unica Corporation.  All rights reserved. -->\n\
+      <script language=\"JavaScript\" src=\"https://static.o2.de/resource/js/tracking/ntpagetag.js\" type=\"text/javascript\"></script><!-- INDEX --></o2:cms>\n\
+      \t</div>\n\
+      \t\n\n\
+      </body>\n\
+      </html>\n\
+      <!-- null -->"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: "https://login.o2online.de:443/auth/;jsessionid=1132E76B283E4C32DB96D3B039A4A5BC?wicket:interface=:0:loginForm::IFormSubmitListener::"
+    body: id6_hf_0=&loginName%3AloginName=01791485682&password%3Apassword=fakepassword
+    headers: 
+      user-agent: 
+      - Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; de-at) AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10
+      accept-encoding: 
+      - gzip,deflate,identity
+      accept-charset: 
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      accept-language: 
+      - en-us,en;q=0.5
+      cookie: 
+      - JSESSIONID=1132E76B283E4C32DB96D3B039A4A5BC
+      host: 
+      - login.o2online.de
+      referer: 
+      - !ruby/object:URI::HTTPS 
+        fragment: 
+        host: login.o2online.de
+        opaque: 
+        parser: 
+        password: 
+        path: /auth/login
+        port: 443
+        query: o2_type=asp&o2_label=login/comcenter-login&scheme=http&port=80&server=email.o2online.de&url=%2Fssomanager.osp%3FAPIID%3DAUTH-WEBSSO
+        registry: 
+        scheme: https
+        user: 
+      content-type: 
+      - application/x-www-form-urlencoded
+      content-length: 
+      - "76"
+      connection: 
+      - keep-alive
+      keep-alive: 
+      - 300
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 302
+      message: Moved Temporarily
+    headers: 
+      date: 
+      - Sun, 09 Oct 2011 22:51:57 GMT
+      x-powered-by: 
+      - "Servlet 2.4; JBoss-4.2.3.GA (build: SVNTag=JBoss_4_2_3_GA date=200807181417)/JBossWeb-2.0"
+      location: 
+      - "https://login.o2online.de/auth/?wicket:interface=:0::::"
+      content-length: 
+      - "0"
+      keep-alive: 
+      - timeout=3, max=200
+      content-type: 
+      - text/plain
+    body: 
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: "https://login.o2online.de:443/auth/?wicket:interface=:0::::"
+    body: 
+    headers: 
+      user-agent: 
+      - Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; de-at) AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10
+      accept-encoding: 
+      - gzip,deflate,identity
+      accept-charset: 
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      accept-language: 
+      - en-us,en;q=0.5
+      cookie: 
+      - JSESSIONID=1132E76B283E4C32DB96D3B039A4A5BC
+      host: 
+      - login.o2online.de
+      referer: 
+      - !ruby/object:URI::HTTPS 
+        fragment: 
+        host: login.o2online.de
+        opaque: 
+        parser: 
+        password: 
+        path: /auth/;jsessionid=1132E76B283E4C32DB96D3B039A4A5BC
+        port: 443
+        query: "wicket:interface=:0:loginForm::IFormSubmitListener::"
+        registry: 
+        scheme: https
+        user: 
+      connection: 
+      - keep-alive
+      keep-alive: 
+      - 300
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      date: 
+      - Sun, 09 Oct 2011 22:51:58 GMT
+      x-powered-by: 
+      - "Servlet 2.4; JBoss-4.2.3.GA (build: SVNTag=JBoss_4_2_3_GA date=200807181417)/JBossWeb-2.0"
+      cache-control: 
+      - no-cache, max-age=0,must-revalidate, no-store
+      pragma: 
+      - no-cache
+      content-type: 
+      - text/html;charset=UTF-8
+      content-language: 
+      - en-US
+      content-length: 
+      - "7207"
+      keep-alive: 
+      - timeout=3, max=200
+    body: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n\
+      <html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:o2=\"http://www.o2.de/wicket\" xml:lang=\"de\" lang=\"de\">\n\
+      <head>\n    <title>o2.de</title>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=8\" />\n\
+      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n\
+      <meta http-equiv=\"language\" content=\"de\" />\n\
+      <meta http-equiv=\"pragma\" content=\"no-cache\" />\n\
+      <!--[if IE]><![endif]-->\n\
+      <link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/main.css?v=05101514\" type=\"text/css\" media=\"all\" charset=\"UTF-8\" />\n\
+      <link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/forms.css?v=05101514\" type=\"text/css\" media=\"all\" charset=\"UTF-8\" />\n\
+      <link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/shopnew.css?v=05101514\" type=\"text/css\" media=\"all\" charset=\"UTF-8\" />\n\
+      <!--[if IE]>\n\
+      \t<link rel=\"stylesheet\" href=\"https://static.o2.de/resource/css/min/styles-ie.css?v=05101514\" type=\"text/css\" media=\"screen\" charset=\"UTF-8\" />\n\
+      <![endif]-->\n\
+      <script type=\"text/javascript\" src=\"https://static.o2.de/resource/js/min/main.js?v=05101514\"></script>\n\n\
+      <script type=\"text/javascript\" src=\"resources/org.apache.wicket.markup.html.WicketEventReference/wicket-event.js\"></script>\n\
+      <script type=\"text/javascript\" src=\"resources/org.apache.wicket.ajax.WicketAjaxReference/wicket-ajax.js\"></script>\n\
+      </head>\n\
+      <body>\n\
+      \t<div id=\"main-wrapper\">\n\
+      \t\t<o2:cms id=\"id3\"><!-- NO INDEX -->\n\
+      <div id=\"header\" class=\"microsite\">\n\
+      <a href=\"http://www.o2online.de/\" id=\"r-1310967230\" class=\"header-logo\" title=\"Homepage\"><span><img src=\"https://static2.o2.de/blob/10405252/Image/bild-o2-beta.png?v=5\" width=\"53\" height=\"53\" title=\"\" alt=\"o2-Logo\" />\n\
+      \t</span></a>\n\
+      \t</div>\n\n\
+      <!-- INDEX --></o2:cms>\n\
+      \t\t<div id=\"content-area\">\n\
+      \t\t\t\n\n\n        <div class=\"grid9 border-bg\">\n            <div class=\"col9 login\">\n                \n    <div class=\"form-table-header\">\n        <div id=\"id-10538196\">\n\
+      \t\t<div class=\"article\">\n\
+      \t\t<h2>Login</h2></div>\n\
+      \t</div>\n\
+      \t\n    </div>\n    <div id=\"id5\">\n\n        <div class=\"feedbackPanel\">\n            <p>\n                \n                    <span class=\"alert\">Ihre Mobilfunknummer/Benutzerkennung und/oder Kennwort ist ung\xC3\xBCltig.</span>\n                \n            </p>\n        </div>\n\n\
+      </div>\n    \n     <form id=\"id6\" method=\"post\" action=\"?wicket:interface=:0:loginForm::IFormSubmitListener::\"><div style=\"width:0px;height:0px;position:absolute;left:-100px;top:-100px;overflow:hidden\"><input type=\"hidden\" name=\"id6_hf_0\" id=\"id6_hf_0\" /></div>\n        <div class=\"form-table-content\">\n            <p class=\"mandatory-field\"><span class=\"mandatory\">*</span> Pflichtfeld</p>\n            <table class=\"login-table\">\n                <colgroup>\n                    <col/>\n                    <col/>\n                    <col/>\n                </colgroup>\n                <tbody>\n                \n    <tr>\n        <td>\n            <label for=\"id1\">Handynr. oder Nutzername</label>\n            <span class=\"mandatory\">*</span>\n        </td>\n\n        <td>\n            \n    <input type=\"text\" id=\"id7\" maxlength=\"30\" value=\"01791485682\" name=\"loginName:loginName\" onblur=\"var wcall=wicketAjaxPost('?wicket:interface=:0:loginForm:loginName:loginName::IBehaviorListener:0:', wicketSerialize(Wicket.$('id7')),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id7') != null;}.bind(this));\"/>\n\n        </td>\n        <td>\n          \n          <span id=\"id8\">\n    \n\
+      </span>\n        </td>\n    </tr>\n\n                \n    <tr>\n        <td>\n            <label for=\"id2\">Kennwort</label>\n            <span class=\"mandatory\">*</span>\n        </td>\n\n        <td>\n            \n    <input type=\"password\" id=\"id9\" maxlength=\"30\" value=\"\" name=\"password:password\" onblur=\"var wcall=wicketAjaxPost('?wicket:interface=:0:loginForm:password:password::IBehaviorListener:0:', wicketSerialize(Wicket.$('id9')),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id9') != null;}.bind(this));\"/>\n\n        </td>\n        <td>\n          \n          <span id=\"ida\">\n    \n\
+      </span>\n        </td>\n    </tr>\n\n                \n                <tr>\n                    <td colspan=\"3\"><a href=\"registration\" class=\"lnk\">Registrierung</a></td>\n\n                </tr>\n                <tr>\n                    <td colspan=\"3\"><a href=\"passwordForgotten\" class=\"lnk\">Kennwort vergessen?</a></td>\n\n                </tr>\n                </tbody>\n            </table>\n        </div>\n        \n\
+      <div class=\"form-table-buttons\">\n    <button type=\"submit\" class=\"btn blue big rght\" id=\"loginButton\">\n        <span>Weiter</span>\n    </button>\n    <button class=\"btn white big\" id=\"idb\" name=\"buttons:cancel\">\n        <span>Abbrechen</span>\n    </button>\n\
+      </div>\n\n    </form>\n\n\n            </div>\n        </div>\n\n\n\
+      \t\t</div>\n\
+      \t\t<div id=\"footnoteListPanelled\">\n\
+      \t\t\t<div id=\"idc\"></div>\n\
+      \t\t</div>\n\
+      \t\t<o2:cms id=\"idd\"><!-- NO INDEX -->\n\
+      <div id=\"footer\">\n\
+      <ul id=\"navigation-footer\">\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/impressum/\" id=\"r-2053620884\" class=\"lnk\" title=\"Impressum\" rel=\"nofollow\"><span>Impressum</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/agb-und-infos/\" id=\"r-2101408537\" class=\"lnk\" title=\"AGB &#38; Infos\" rel=\"nofollow\"><span>AGB &#38; Infos</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/daten-und-jugendschutz/datenschutz/\" id=\"r-1660053931\" class=\"lnk\" title=\"Daten- und Jugendschutz\" rel=\"nofollow\"><span>Daten- und Jugendschutz</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://www.o2online.de/meta/werbepartner/\" id=\"r-2056697754\" class=\"lnk\" title=\"Werbepartner\" rel=\"nofollow\"><span>Werbepartner</span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://o2.de/go/unternehmen\" id=\"r-658641200\" class=\"lnk\" title=\"\xC3\x9Cber o2\"><span>\xC3\x9Cber O<sub>2</sub></span></a>\n\
+      \t</li>\n\
+      \t\t<li><a href=\"http://o2.de/go/karriere\" id=\"r-181656021\" class=\"lnk\" title=\"Karriere\"><span>Karriere</span></a>\n\
+      \t</li>\n\
+      \t\t</ul>\n\
+      <a href=\"http://www.telefonica.com/en/home/jsp/home.jsp\" id=\"r-1479919759\" class=\"lnk\" title=\"Telef\xC3\xB3nica\"><span><img class=\"footer-logo\" src=\"https://static2.o2.de/blob/10405030/Image/bild-telefonica-logo.png?v=8\" width=\"76\" height=\"21\" title=\"Telef\xC3\xB3nica\" alt=\"Telef\xC3\xB3nica\" />\n\
+      \t</span></a>\n\
+      \t<a href=\"http://www.telefonica.de/ext/o2/wizard/index?\" id=\"r-2133452133\" target=\"_blank\" class=\"footer-legalnote\" title=\"\xC2\xA9 Telef\xC3\xB3nica Germany GmbH &#38; Co. OHG\"><span>\xC2\xA9 Telef\xC3\xB3nica Germany GmbH &#38; Co. OHG</span></a>\n\
+      \t</div>\n\n\
+      <script type=\"text/javascript\">\n\
+      <!--\n\
+      if (typeof(unica_path) == 'undefined') { \n\
+      \tvar unica_path = window.location.pathname;\n\
+      }\n\
+      if (typeof(NTPT_PGEXTRA) == 'undefined') {\n\
+      var NTPT_PGEXTRA = \"lc=\" + window.location.protocol + \"//\" +  window.location.hostname + unica_path + encodeURIComponent(window.location.search);\n\
+      }\n\
+      var NTPT_IMGSRC = 'http://track.o2online.de/images/ntpagetag.gif';\n\
+      var NTPT_HTTPSIMGSRC = 'https://track.o2online.de/images/ntpagetag.gif';\n\
+      //-->\n\
+      </script>\n\
+      <!-- Copyright 2004-2006 Unica Corporation.  All rights reserved. -->\n\
+      <script language=\"JavaScript\" src=\"https://static.o2.de/resource/js/tracking/ntpagetag.js\" type=\"text/javascript\"></script><!-- INDEX --></o2:cms>\n\
+      \t</div>\n\
+      \t\n\n\
+      </body>\n\
+      </html>\n\
+      <!-- null -->"
+    http_version: "1.1"

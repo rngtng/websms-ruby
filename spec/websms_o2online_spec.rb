@@ -1,4 +1,11 @@
 require 'spec_helper'
+require 'vcr'
+
+VCR.config do |c|
+  c.cassette_library_dir = 'spec/fixtures/vcr_cassettes/o2online'
+  # c.default_cassette_options = { :record => :once }
+  c.stub_with :fakeweb
+end
 
 FIXTURE_PATH = "spec/fixtures/"
 
