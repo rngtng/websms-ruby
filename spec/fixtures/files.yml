@@ -1,0 +1,239 @@
+# (?<day>\d\d)\.(?<month>\d\d)\.(?<year>\d\d\d\d);
+# (?<hour>\d\d)\:(?<minute>\d\d);
+
+"SMS-2001.txt":
+  pattern: |
+    (\"(?<rname>.*?)\" <)?
+    (?<rtel>[0-9]+)>?\n
+    (?<date>.+?)\n
+    (?<text>(.+?\n)+)
+    \n
+  test: '\.2001'
+
+"SMS-2002-2003.txt":
+  pattern: |
+    (?<date>.*);
+    (?<time>.*);
+    \[(?<stel>.+)\];
+    (?<sname>.*);
+    (?<text>.*);
+  test: ';'
+
+"SMS-2004-11-30.txt":
+  pattern: |
+    (DATE: (?<date>.+)\n
+    TIME: (?<time>.+)\n
+    PHONE.NUBER:.(?<rtel>\+?\d+)\n
+    SENDER:(?<rname>.*)\n
+    (?<text>.+)\n)
+    |
+    (DATE: \n
+    TIME: \n
+    PHONE.NUBER:.(?<stel>\+?\d+)\n
+    SENDER:(?<sname>.*)\n
+    (?<text>.+)\n)
+  test: 'DATE:'
+
+"SMS-2004-Ausgang.txt": &SMS-2004-Ausgang
+  pattern: |
+    (Ausgang,
+    (?<date>.*?),
+    (?<rtel>.*?),
+    (?<rname>.*?),
+    (?<text>.*))
+    |
+    (Eingang,
+    (?<date>.*),
+    (?<stel>.*),
+    (?<sname>.*),
+    (?<text>.*))
+  test: 'Ausgang'
+
+"SMS-2004-Eingang.txt":
+  <<: *SMS-2004-Ausgang
+  test: 'Eingang'
+
+"SMS-2004.txt":
+  <<: *SMS-2004-Ausgang
+  test: 'Eingang|Ausgang'
+
+"SMS-2005-01-19.txt": &SMS-2005-01-19
+  pattern: |
+    ((?<date>.*)\t
+    (?<time>.*)\t
+    received/(un)?read\t
+    .*\t
+    (?<stel>.*)\t
+    .*\t
+    .*\t
+    (?<text>.*))
+    |
+    ((?<date>.*)\t
+    (?<time>.*)\t
+    stored/sent\t
+    .*\t
+    (?<rtel>.*)\t
+    .*\t
+    .*\t
+    (?<text>.*))
+  test: '0'
+
+"SMS-2005-02-05.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-02-22.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-03-20.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-06-12.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-08-08.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-09-25.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-10-30.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-11-18.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-12-16.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2005-12-29.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2006-01-14.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2006-02-05.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2006-02-18.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2006-03-09.txt":
+  <<: *SMS-2005-01-19
+
+"SMS-2006-05-05.txt":
+  pattern: |
+    ((?<sname>.+)\t)?
+    (?<stel>[\d ()]+)\t
+    (?<date>.+)\n
+    (?<text>(.+\n)+)\n
+  test: 'PM|AM'
+
+"SMS-2006-07-24.txt": &SMS-2006-07-24
+  pattern: |
+    (To:
+    (?<rname>[^0-9<\n+]*)
+    (<?(?<rtel>[\d ()+]*)(\/m>)?)\n
+    (Device: .*\n)?
+    (Date: (?<date>.*)\n)?\n
+    (?<text>(.+\n)+)\n)
+    |
+    (From:
+    (?<sname>[^0-9<\n+]*)
+    (<?(?<stel>[\d ()+]*)(\/m>)?)\n
+    (Device: .*\n)?
+    (Date: (?<date>.*)\n)?\n
+    (?<text>(.+\n)+)\n)
+  test: '(From|To):'
+
+"SMS-2006-11-15.txt":
+  <<: *SMS-2006-07-24
+
+"SMS-2008-03-03.txt":
+  <<: *SMS-2006-07-24
+
+"SMS-2008-07-01.txt": &SMS-2008-07-01
+  pattern: |
+    (Sent\t
+    (?<date>[^\t]+)\t
+    ((?<rtel>\+?[\d -()]+)|(?<rname>[^\d][^\n]+))\n
+    (?<text>(.+\n)+)\n)
+    |
+    (Received\t
+    (?<date>[^\t]+)\t
+    ((?<stel>\+?[\d -()]+)|(?<sname>[^\d][^\n]+))\n
+    (?<text>(.+\n)+)\n)
+  test: 'Received|Sent'
+
+"SMS-2008-10-15.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2009-05-10.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2009-07-01.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2009-10-01.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2010-06-01.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2010-08-15.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2010-10-10.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2010-DEZ.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2010-NOV.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2010-Okt.txt":
+  <<: *SMS-2008-07-01
+
+"SMS-2011-Okt.txt":
+  <<: *SMS-2008-07-01
+
+
+"SMS-Anna.txt":
+  pattern: |
+    (?<text>.+)
+  test: 'a|e'
+
+"SMS-Karo.txt":
+  pattern: |
+    (received;
+    (?<sname>.*);
+    (?<date>.*);
+    (?<text>.*))
+    |
+    (sent;
+    (?<rname>.*);
+    (?<date>.*);
+    (?<text>.*))
+  test: ";"
+
+
+"sms.csv":
+  pattern: |
+    (".*?",
+    "(?<stel>.*?)",
+    "(?<date>.*?)",
+    "(?<text>.*)",
+    "2.+)
+    |
+    (".*?",
+    "(?<rtel>.*?)",
+    "(?<date>.*?)",
+    "(?<text>.*)",
+    "3.+)
+
+  test: ','
+  mapping:
+    received: "'$4' =~ /2/"
+    time: $2
+    tel: $1
+    text: $3

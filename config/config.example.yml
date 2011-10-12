@@ -19,7 +19,7 @@ file:
     received: true
 
   "SMS-2001.txt":
-    pattern: '^(\"(.*)\" <)?([0-9]+)>?\n(.+)\n((.+\n)+)\n'
+    pattern: '^(\"(?:<name>.*)\" <)?(?:<tel>[0-9]+)>?\n(?:<date>.+)\n(?:<text>(.+\n)+)\n'
     test: '\.2001'
     mapping:
       received: false
@@ -29,7 +29,7 @@ file:
       text: $4
 
   "SMS-2002-2003.txt":
-    pattern: '^(.*);(.*);\[(.+)\];(.*);(.*);.*$'
+    pattern: '^(.*);(.*);\[(?:<tel>.+)\];(?:<name>.*);(?:<text>.*);.*$'
     test: ';'
     mapping:
       received: true
@@ -39,7 +39,7 @@ file:
       text: $4
 
   "SMS-2004-11-30.txt":
-    pattern: 'DATE:(.*)\nTIME:(.*)\nPHONE NUBER:(.*)\nSENDER:(.*)\n(.+)\n'
+    pattern: 'DATE:(?:<date>.*)\nTIME:(.*)\nPHONE NUBER:(?:<tel>.*)\nSENDER:(.*)\n(?:<text>.+)\n'
     test: 'DATE:'
     mapping:
       received: "!'$0'.empty?"
@@ -48,7 +48,7 @@ file:
       text: $4
 
   "SMS-2004-Ausgang.txt": &SMS-2004-Ausgang
-    pattern: '^Ausgang,(.*),(.*),(.*),(.*)$'
+    pattern: '^Ausgang,(?:<date>.*),(?:<rtel>.*),(?:<rname>.*),(?:<text>.*)$'
     test: 'Ausgang'
     mapping:
       received: false
@@ -59,7 +59,7 @@ file:
 
   "SMS-2004-Eingang.txt":
     <<: *SMS-2004-Ausgang
-    pattern: '^Eingang,(.*),(.*),(.*),(.*)$'
+    pattern: '^Eingang,(?:<date>.*),(?:<stel>.*),(?:<sname>.*),(?:<text>.*)$'
     test: 'Eingang'
 
   "SMS-2004.txt":
@@ -125,7 +125,7 @@ file:
     <<: *SMS-2005-01-19
 
   "SMS-2006-05-05.txt":
-    pattern: '((.+)\t)?([0-9 ()]+)\t(.+)\n((.+\n)+)\n'
+    pattern: '((?:<sname>.+)\t)?(?:<stel>[0-9 ()]+)\t(?:<date>.+)\n(?:<text>(.+\n)+)\n'
     test: 'PM|AM'
     mapping:
       received: true
@@ -135,7 +135,7 @@ file:
       text: $4
 
   "SMS-2006-07-24.txt": &SMS-2006-07-24
-    pattern: '^(To|From): ([^0-9<\n+]*)(<?([ ()+0-9]*)(\/m>)?)\n(Device: .*\n)?(Date: (.*)\n)?\n((.+\n)+)\n'
+    pattern: '^(To|From): (?:<name>[^0-9<\n+]*)(<?(?:<tel>[ ()+0-9]*)(\/m>)?)\n(Device: .*\n)?(Date: (?:<date>.*)\n)?\n(?:<text>(.+\n)+)\n'
     test: '(From|To):'
     mapping:
       received: "'$0' =~ /From/"
@@ -151,7 +151,7 @@ file:
     <<: *SMS-2006-07-24
 
   "SMS-2008-07-01.txt": &SMS-2008-07-01
-    pattern: '^(Sent|Received)\t([^\t]+)\t((\+?[0-9]+)|([^0-9\n]+))\n((.+\n)+)\n'
+    pattern: '^(Sent|Received)\t(?:<date>[^\t]+)\t(?:<tel>(\+?[0-9]+)|([^0-9\n]+))\n(?:<text>(.+\n)+)\n'
     test: 'Received|Sent'
     mapping:
       received: "'$0' =~ /Received/"

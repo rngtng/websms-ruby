@@ -17,11 +17,11 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  ['activerecord', 'mechanize'].each do |gem| #, 'activesupport ~>2.3.8'
+  ['datamapper', 'mechanize'].each do |gem| #, 'activesupport ~>2.3.8'
     s.add_dependency *gem.split(' ')
   end
 
-  ['rspec'].each do |gem|
+  ['rspec', 'fakeweb', 'vcr', 'ruby-debug19'].each do |gem|
     s.add_development_dependency *gem.split(' ')
   end
 end

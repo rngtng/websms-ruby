@@ -1,15 +1,59 @@
 
 module Websms
-  module Sms
-    ATTRIBUTES = [:received, :name, :tel, :date, :text, :source, :parent_msg_id]
+  class Sms
+    ATTRIBUTES = [:received,
+                  :rname, :rtel,
+                  :sname, :stel,
+                  :date, :day, :month, :year, :hour, :minute, :text,
+                  :source, :parent_msg_id,
+                  :status,
+                  :id]
 
     attr_accessor *ATTRIBUTES
-
-    #virtual
-    attr_writer :time
+    attr_accessor :attributes
 
     ##################################
 
+    def initialize(options = {})
+      self.attributes = {}
+      #update_attributes(options)
+    end
+
+    ##################################
+
+    def self.clean_number(number)
+      return unless number
+      number.gsub(/[^0-9]/, '').gsub('0049', '49').gsub(/^0/, '49')
+    end
+
+    ##################################
+
+    def fill(data, pattern)
+      if match = data.match(/#{pattern}/mix)
+        match.names.each do |name|
+          update_attribute(name, match[name])
+        end
+      end
+    end
+
+    ##################################
+
+    private
+    def update_attributes(options)
+      options.each do |name, value|
+        update_attribute(name, value)
+      end
+    end
+
+    def update_attribute(name, value)
+      attributes[name] = value
+      # send("#{name}=", value)
+    end
+
+  end
+end
+
+=begin
     def tel
       Websms::Sms::clean_number(@tel)
     end
@@ -63,9 +107,7 @@ module Websms
 
     ##################################
 
-    def self.clean_number(number)
-      return unless number
-      number.gsub(/[^0-9]/, '').gsub('0049', '49').gsub(/^0/, '49')
-    end
   end
 end
+
+=end

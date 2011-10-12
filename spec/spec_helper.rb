@@ -7,6 +7,11 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 #require 'active_record'
 require 'websms'
+require 'vcr'
+
+RSpec.configure do |c|
+  c.extend VCR::RSpec::Macros
+end
 
 # use memroy DB here??
 

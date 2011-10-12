@@ -5,7 +5,7 @@
 
 # File.expand_path("../lib", __FILE__)
 
-# require 'websms/sms'
+require 'websms/sms'
 require 'websms/o2online'
 # require 'websms/file'
 # require 'websms/db'

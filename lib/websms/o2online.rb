@@ -10,13 +10,16 @@ module Websms
 
     NEW_PAGE     = "https://email.o2online.de/ssomanager.osp?APIID=AUTH-WEBSSO&TargetApp=/smscenter_new.osp%3FAutocompletion%3D1%26MsgContentID%3D-1"
     EDIT_PAGE    = "https://email.o2online.de/smscenter_new.osp?Autocompletion=1&SID=124683602_emgucyuj&REF=1284069078&MsgContentID="
-    ARCHIVE_PAGE = "https://email.o2online.de/smscenter_search.osp"
-
-    #?SID=162525000_gidpeajj&FolderID=0&REF=1318197280
-     #               https://email.o2online.de/smscenter_search.osp?SID=162525000_gidpeajj&FolderID=0&REF=1318198014
-      #              https://email.o2online.de/smscenter_search.osp?SID=162525000_gidpeajj&FolderID=0&REF=1318198983"
+    ARCHIVE_PAGE = "https://email.o2online.de/smscenter_search.osp" #"?EStart="
 
     PER_PAGE     = 50
+
+    PATTERN = %q{
+       getDueDate\('(?<day>\d+)',.'(?<month>\d+)',.'(?<year>\d+)',.'(?<hour>\d+)',.'(?<minute>\d+)'.+
+       cleanRecipient\('((?<rname>.+?).&lt;)?(?<rtel>[+\d]+).+
+       cleanMessage\('(?<text>.+?)'\).+
+       displaySendStatus\((?<status>\d+),'(?<id>\d+)'
+     }
 
     attr_reader :user
 
@@ -57,20 +60,13 @@ module Websms
     end
 
     def get_archive_page(page_nr = 1)
-      @browser.get ARCHIVE_PAGE
+      @browser.get ARCHIVE_PAGE #{"#{}#{(page_nr - 1) * PER_PAGE}"
     end
 
-#parse_archive
-    def parse_archive(archive)
-      archive.parser.css("table.CONTENTLIST tr").map do |line|
-        parse_archive_line line
-      end.compact
-    end
-
-    def parse_archive_line(line)
-      date, name, text, dummy = line.css("td.CONTENTTEXT")
-      return unless date
-      Websms::O2online::Sms.new( :received => false, :account => self, :raw_date => date, :raw_name => name, :raw_text => text )
+    def parse_archive(page)
+      page.parser.css("table.CONTENTLIST tr").map(&:content).select do |line|
+        line.include?("getDueDate")
+      end
     end
 
   end
