@@ -1,24 +1,10 @@
-#
-#  Copyright (c) 2011, SoundCloud Ltd., Rany Keddo, Tobias Bielohlawek
-#
-
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-
-#require 'active_record'
-require 'websms'
+require 'rspec'
 require 'vcr'
 
-RSpec.configure do |c|
-  c.extend VCR::RSpec::Macros
+require 'websms'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
 end
-
-# use memroy DB here??
-
-# ActiveRecord::Base.establish_connection(
-#   :adapter => 'mysql',
-#   :database => 'large_hadron_migration',
-#   :username => 'root',
-#   :password => '',
-#   :host => 'localhost'
-# )

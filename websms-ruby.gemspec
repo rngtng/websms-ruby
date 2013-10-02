@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
     s.add_dependency *gem.split(' ')
   end
 
-  ['rspec', 'fakeweb', 'vcr', 'ruby-debug19'].each do |gem|
+  ['rspec', 'vcr', 'webmock', 'debugger'].each do |gem|
     s.add_development_dependency *gem.split(' ')
   end
 end

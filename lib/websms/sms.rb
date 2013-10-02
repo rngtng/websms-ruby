@@ -4,7 +4,8 @@ module Websms
     ATTRIBUTES = [:received,
                   :rname, :rtel,
                   :sname, :stel,
-                  :date, :day, :month, :year, :hour, :minute, :text,
+                  :date, :day, :month, :year, :hour, :minute,
+                  :text,
                   :source, :parent_msg_id,
                   :status,
                   :id]
