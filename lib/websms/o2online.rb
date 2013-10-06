@@ -54,15 +54,18 @@ module Websms
       @logged_in
     end
 
-    def ids
-      all_sms(false).map { |sms| sms[:id] }
-    end
-
     def all_sms(resolve_details = true)
-      archive_page(1, resolve_details)
+      all = []
+      page = 1
+      while((sms = archive_page(page, resolve_details)) && sms.any?) do
+        all << sms
+        page =+ 1
+      end
+      all
     end
 
     private
+
     def archive_page(page_nr, resolve_details)
       @browser.get(ARCHIVE_PAGE % ((page_nr - 1) * PER_PAGE)).root.css("script").map do |line|
         if match = line.content.match(Regexp.new(ARCHIVE_PATTERN, Regexp::EXTENDED))
