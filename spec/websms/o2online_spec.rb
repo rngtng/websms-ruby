@@ -21,12 +21,24 @@ describe Websms::O2online do
     end
   end
 
-  describe 'archive_page', :vcr => { :cassette_name => "websms/o2online/archive_page" } do
-    subject { client.archive_page }
+  describe 'ids', :vcr => { :cassette_name => "websms/o2online/archive_page" } do
+    subject { client.ids }
 
-    it "extracs sms ids from archive page" do
+    it "extracs sms ids" do
       should == ["20213085", "20212947", "20191132", "20190776", "20189889", "20184093", "20139336", "20137758", "20137705", "20134495", "20134207", "20132342", "20132328", "20128970", "20128297", "20127870", "20127861", "20127339", "20127037", "20126284", "20126099", "20125835", "20123351", "20123285", "20111663", "20111007", "20110444", "20109808", "20107792", "20102019", "20101430", "20101046", "20099787", "20084908", "20084733", "20084728", "20080927", "20079870", "20079551", "20078821", "20078775", "20074296", "20072144", "20069775", "20069208", "20067061", "20067042", "20066011", "20065762", "20065585"]
     end
   end
 
+  describe 'last_sms', :vcr => { :cassette_name => "websms/o2online/archive_page" } do
+    subject { client.all_sms(false).last }
+
+    it "gets data from first sms" do
+      should == {
+        :date => "16.8.2013 15:34",
+        :id   => "20065585",
+        :rtel => "00491774900021",
+        :text => "Ach gerne aber komm wie's auschaut erst 20:30 an und muss dann noch mein zeusch ablegen.. Ich ruf sp"
+      }
+    end
+  end
 end

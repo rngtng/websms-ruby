@@ -15,7 +15,14 @@ module Websms
     ARCHIVE_PAGE = "https://email.o2online.de/smscenter_search.osp?EStart=%s"
     EDIT_PAGE    = "https://email.o2online.de/smscenter_new.osp?Autocompletion=1&SID=124683602_emgucyuj&REF=1284069078&MsgContentID=%s"
 
-    PATTERN = %q{
+    ARCHIVE_PATTERN = %q{
+       groupCaptionChanged\('(?<date>.+?)'.*?
+       cleanRecipient\('(?<rtel>.+?)'.*?
+       '(?<text>.+)', .*
+       displaySendStatus\(\d+,'(?<id>.+?)'.*?
+    }
+
+    EDIT_PATTERN = %q{
        getDueDate\('(?<day>\d+)',.'(?<month>\d+)',.'(?<year>\d+)',.'(?<hour>\d+)',.'(?<minute>\d+)'.+
        cleanRecipient\('((?<rname>.+?).&lt;)?(?<rtel>[+\d]+).+
        cleanMessage\('(?<text>.+?)'\).+
@@ -47,23 +54,37 @@ module Websms
       @logged_in
     end
 
-    def archive_page(page_nr = 1)
-      @browser.get(ARCHIVE_PAGE % ((page_nr - 1) * PER_PAGE)).root.css(".NOLINK").map do |line|
-        line.attr('onclick').match(/'(\d+)'/)[1]
-      end
+    def ids
+      all_sms(false).map { |sms| sms[:id] }
+    end
+
+    def all_sms(resolve_details = true)
+      archive_page(1, resolve_details)
     end
 
     private
-    def get_edit_page(id)
-      @browser.get "#{EDIT_PAGE}#{id}"
+    def archive_page(page_nr, resolve_details)
+      @browser.get(ARCHIVE_PAGE % ((page_nr - 1) * PER_PAGE)).root.css("script").map do |line|
+        if match = line.content.match(Regexp.new(ARCHIVE_PATTERN, Regexp::EXTENDED))
+          if match[:text].size < 100 || !resolve_details
+            {
+              :date => match[:date],
+              :id   => match[:id],
+              :rtel => match[:rtel],
+              :text => match[:text].gsub(%q{\'}, "'").gsub('<br>', "\n"),
+            }
+          else
+            edit_page(match[:id])
+          end
+        end
+      end.compact
     end
 
-    # def parse_archive(page)
-    #   page.root.css(".NOLINK").map do |line|
-    #     line.attr('onclick').scan(/'(\d+)'/)
-    #   end
-    # end
-
+    def edit_page(id)
+      @browser.get(EDIT_PAGE % id).root.css("test").map do |line|
+        line
+      end
+    end
   end
 end
 
